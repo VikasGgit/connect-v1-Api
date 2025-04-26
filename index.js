@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const dbConnect = require("./config/database");
@@ -11,8 +12,10 @@ const cors = require("cors");
 const app = express();
 const cookieParser = require("cookie-parser");
 const { initializeSocket } = require('./socket');
+const PORT = process.env.PORT;
+const FRONTEND_URL=process.env.FRONTEND_URL;
 const corsOption = {
-    origin:"http://localhost:5173",
+    origin:FRONTEND_URL,
     credentials:true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Authorization,Content-Type"
@@ -27,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 dbConnect();
-const server=app.listen(3000, () => {
+const server=app.listen(PORT, () => {
     console.log("server started successfully");
 })
 app.get('/', (req , res) => {
