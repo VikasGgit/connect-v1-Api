@@ -281,7 +281,7 @@ exports.userDetails = async (req, res) => {
 }
 exports.getUserDetails = async (req, res) => {
   try {
-    const userId = req.user?.id;
+    const userId = req?.params?.id;
     if (!userId) {
       return res.status(400).json({ success: false, message: "User ID not found in request" });
     }
