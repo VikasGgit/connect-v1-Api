@@ -12,6 +12,7 @@ exports.getNotifications = async (req, res) => {
   .select('notification')
   .populate({
     path: 'notification',
+    options: { sort: { createdAt: -1 } },
     populate: {
       path: 'user_id',
       select: 'firstName lastName status', // only fetch name and education
