@@ -83,6 +83,14 @@ exports.getFeed = async (req, res) => {
     // Fetch paginated posts
     const paginatedPosts = await Post.find(postFilter)
       .populate('user', 'firstName lastName picture')
+      .populate({
+        path:"comments",
+        populate:{
+          path:"user",
+          select: "firstName lastName picture"
+        }
+      })
+      
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
